@@ -18,7 +18,9 @@ int main (int argc, char* argv[])
     {
         int nghost = 1;
         int max_grid_size=64;
-        MultiFab marker,apx,apy,apz;
+        // EY: what are these apx, apy, apz doing here?
+        // MultiFab marker,apx,apy,apz;
+        MultiFab marker;
         std::string stl_fname;
 
         Vector<Real> plo;
@@ -57,14 +59,24 @@ int main (int argc, char* argv[])
 
         marker.define(nodal_ba, dm, 1, nghost);
 
-        STLtools stlobj;
 
-        stlobj.read_ascii_stl_file(stl_fname);
+        STLtools stlobj; 
 
-        Real plo_arr[]={plo[0],plo[1],plo[2]};
+        // EY: read_ascii_stl_file is not public
+        // stlobj.read_ascii_stl_file(stl_fname); 
+        // EY: error says we need 4 arguments
+        Real scale = 1.0;
+        Array<Real,3> const& center = {0,0,0};
+        int reverse_normal = 0;
+        stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
+
+        Real plo_arr[]={plo[0],plo[1],plo[2]}; // EY what do we do with this?
         Real po_arr[]={pointoutside[0],pointoutside[1],pointoutside[2]};
 
-        stlobj.stl_to_markerfab(marker,geom,po_arr);
+        // EY: wrong name
+        // stlobj.stl_to_markerfab(marker,geom,po_arr);
+        // EY: nghost needs to be IntVect form
+        stlobj.fill(marker,nghost,geom,po_arr);
 
         marker.FillBoundary(geom.periodicity());
 
