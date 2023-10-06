@@ -1,0 +1,16 @@
+amrex.fpe_trap_invalid=1
+
+verbose = 2
+
+
+eb2.geom_type = stl
+ncells =  128 32 64
+stl_file=airfoil.stl
+stl_scale = 1.0
+stl_center = 0.0 0.0 0.0
+stl_reverse_normal = 0
+
+max_grid_size=8
+outside_point=250.0 250.0 250.0
+
+
