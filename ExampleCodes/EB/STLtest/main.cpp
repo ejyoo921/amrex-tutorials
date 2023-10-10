@@ -34,7 +34,7 @@ int main (int argc, char* argv[])
         pp.getarr("prob_hi",phi);
         pp.getarr("ncells",ncells);
         pp.get("stl_file",stl_fname);
-        pp.getarr("outside_point",pointoutside);
+        // pp.getarr("outside_point",pointoutside);
         pp.query("max_grid_size",max_grid_size);
 
         RealBox real_box({AMREX_D_DECL(plo[0], plo[1], plo[2])},
@@ -70,13 +70,13 @@ int main (int argc, char* argv[])
         int reverse_normal = 0;
         stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
 
-        Real plo_arr[]={plo[0],plo[1],plo[2]}; // EY what do we do with this?
-        Real po_arr[]={pointoutside[0],pointoutside[1],pointoutside[2]};
+        // Real plo_arr[]={plo[0],plo[1],plo[2]}; // EY what do we do with this?
+        // Real po_arr[]={pointoutside[0],pointoutside[1],pointoutside[2]};
 
         // EY: wrong name
         // stlobj.stl_to_markerfab(marker,geom,po_arr);
         // EY: nghost needs to be IntVect form
-        stlobj.fill(marker,nghost,geom,po_arr);
+        stlobj.fill(marker,{0,0,0},geom);
 
         marker.FillBoundary(geom.periodicity());
 

@@ -55,7 +55,8 @@ int main (int argc, char* argv[])
         const EB2::Level& eb_level = eb_is.getLevel(geom);
 
         // options are basic, volume, or full
-        EBSupport ebs = EBSupport::full;
+        // EBSupport ebs = EBSupport::full;
+        EBSupport ebs = EBSupport::volume; // EY
 
         // number of ghost cells for each of the 3 EBSupport types
         Vector<int> ng_ebs = {2,2,2};
