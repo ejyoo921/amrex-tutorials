@@ -10,6 +10,7 @@ COMP = gnu
 DIM = 2
 
 AMREX_HOME ?= ../../../../amrex
+INCLUDE_LOCATIONS += /projects/nawims/CGAL/include 
 
 include $(AMREX_HOME)/Tools/GNUMake/Make.defs
 

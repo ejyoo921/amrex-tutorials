@@ -1,5 +1,5 @@
 AMREX_HOME ?= ../../../../amrex
-INCLUDE_LOCATIONS += /projects/nawims/CGAL/include 
+INCLUDE_LOCATIONS += /home/eyoo/packages/cgal
 
 DEBUG	= FALSE
 
