@@ -13,6 +13,9 @@ o/
 t/
 TAGS
 
+**/Backtrace.0
+**/.DS_Store
+
 # latex
 *.aux
 *.log
@@ -35,6 +38,7 @@ Amr/Advection_AmrCore/Exec/SingleVortex/*.png
 EB/LevelSet/Exec/ImpFunc*
 EB/LevelSet/Exec/LevelSet*
 EB/Donut/Exec/ls_plt*
+**/plt*
 *.vth
 *.vti
 *.vtr
