@@ -48,3 +48,5 @@ EB/Donut/Exec/ls_plt*
 *.visit
 *.pvsm
 
+#profilers
+**/bl_prof**
