@@ -59,6 +59,7 @@ int main (int argc, char* argv[])
         Real scale = 1.0;
         Array<Real,3> const& center = {0,0,0};
 
+
         int required_coarsening_level = 0; // typically the same as the max AMR level index
         int max_coarsening_level = 100;    // typically a huge number so MG coarsens as much as possible
         // build a simple geometry using the "eb2." parameters in the inputs file

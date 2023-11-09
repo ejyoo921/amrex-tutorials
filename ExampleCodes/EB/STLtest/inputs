@@ -2,16 +2,16 @@ amrex.fpe_trap_invalid=1
 
 # Select the embedded geometry 
 eb2.geom_type = stl
-stl_file      = sphere_300.stl
+stl_file      = airfoil.stl
 
-stl_scale = 0.5
-stl_center = 0 0 0
-stl_reverse_normal = 0 # defualt is 0
+stl_scale = 1 # default is 1
+# stl_center = 0 0 0 # default is (0,0,0)
+# stl_reverse_normal = 0 # defualt is 0
 
 # Fluid domain parameters
-prob_lo       =   0   0   0
-prob_hi       =   8    8    8
-ncells        =   16     16    16 
+prob_lo       =  80     5    5
+prob_hi       =  90   10    10
+ncells        =  2    2    2
 max_grid_size = 100 # Default is 64
 
 # outside_point = 20.0 20.0 20.0
