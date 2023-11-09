@@ -54,22 +54,23 @@ int main (int argc, char* argv[])
         Geometry geom(domain,real_box,CoordSys::cartesian,is_periodic);
         DistributionMapping dm(ba);
 
+        MultiFab marker;
+        BoxArray nodal_ba = amrex::convert(ba, IntVect::TheNodeVector());
+        marker.define(nodal_ba, dm, 1, nghost);
+
         STLtools stlobj; 
 
         Real scale = 1.0;
         Array<Real,3> const& center = {0,0,0};
+        int reverse_normal = 0;
 
+        stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
+        stlobj.fill(marker,{0,0,0},geom);
 
-        int required_coarsening_level = 0; // typically the same as the max AMR level index
-        int max_coarsening_level = 100;    // typically a huge number so MG coarsens as much as possible
-        // build a simple geometry using the "eb2." parameters in the inputs file
-        EB2::Build(geom, required_coarsening_level, max_coarsening_level);
+        // write plot file
+        std::string pltfile;
+        WriteSingleLevelPlotfile("plt", marker, {"marker"}, geom, 0.0, 0);
 
-        std::string plot_file{"plt"};
-        auto const& factory = makeEBFabFactory(geom, ba, dm, {1,1,1}, EBSupport::full);
-        MultiFab const& vfrc = factory->getVolFrac();
-        amrex::WriteMLMF(plot_file, {&vfrc}, {geom});
-        
         /* old one --------------------------------------------------------
         // EY: what are these apx, apy, apz doing here?
         MultiFab marker,apx,apy,apz;
@@ -103,7 +104,7 @@ int main (int argc, char* argv[])
         EBSupport ebs = EBSupport::full;
         EBSupport ebs = EBSupport::volume; // EY
 
-        number of ghost cells for each of the 3 EBSupport types
+        // number of ghost cells for each of the 3 EBSupport types
         Vector<int> ng_ebs = {2,2,2};
 
         // This object provides access to the EB database in the format of basic AMReX objects
@@ -114,6 +115,17 @@ int main (int argc, char* argv[])
         std::string pltfile;
         pltfile = "plt";
         WriteSingleLevelPlotfile(pltfile, marker, {"marker"}, geom, 0.0, 0);
+
+        // From Weiqun 
+        int required_coarsening_level = 0; // typically the same as the max AMR level index
+        int max_coarsening_level = 100;    // typically a huge number so MG coarsens as much as possible
+        // build a simple geometry using the "eb2." parameters in the inputs file
+        EB2::Build(geom, required_coarsening_level, max_coarsening_level);
+
+        std::string plot_file{"plt"};
+        auto const& factory = makeEBFabFactory(geom, ba, dm, {1,1,1}, EBSupport::full);
+        MultiFab const& vfrc = factory->getVolFrac();
+        amrex::WriteMLMF(plot_file, {&vfrc}, {geom});
         ---------------------------------------------------------------------------------- */
     }
     amrex::Print() << "Exit now" << "\n";
