@@ -9,9 +9,9 @@ stl_scale = 1 # default is 1
 # stl_reverse_normal = 0 # defualt is 0
 
 # Fluid domain parameters
-prob_lo       =  -44   -34   0
-prob_hi       =   44    34   84
-ncells        =   32     32     32
+prob_lo       =  -44   -34    0
+prob_hi       =   44    34    84
+ncells        =   16    16    16
 
 max_grid_size = 100 # Default is 64
 

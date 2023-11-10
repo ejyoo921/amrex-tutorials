@@ -1,7 +1,7 @@
 AMREX_HOME ?= ../../../../amrex
 INCLUDE_LOCATIONS += /usr/local/opt/cgal/lib/cmake/CGAL/
 
-PROFILE      = FALSE # Full profiling
+PROFILE      = TRUE # Full profiling
 TINY_PROFILE = FALSE
 
 DIM	= 3
