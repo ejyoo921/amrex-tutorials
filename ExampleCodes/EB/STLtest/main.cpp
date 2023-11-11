@@ -67,9 +67,9 @@ int main (int argc, char* argv[])
         stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
         stlobj.fill(marker,{0,0,0},geom, 1.0, -1.0); // Default outside = 1, inside = -1, bounday = 0.
 
-        // write plot file
-        std::string pltfile;
-        WriteSingleLevelPlotfile("plt", marker, {"marker"}, geom, 0.0, 0);
+        // // write plot file
+        // std::string pltfile;
+        // WriteSingleLevelPlotfile("plt", marker, {"marker"}, geom, 0.0, 0);
 
         /* old one --------------------------------------------------------
         // EY: what are these apx, apy, apz doing here?
