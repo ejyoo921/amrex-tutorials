@@ -1,5 +1,8 @@
 AMREX_HOME ?= ../../../../amrex
-INCLUDE_LOCATIONS += /usr/local/opt/cgal/lib/cmake/CGAL/
+
+# We advise you to add the locations of your CGAL and boost.
+INCLUDE_LOCATIONS += /home/eyoo/spack/opt/spack/linux-rhel7-skylake_avx512/gcc-8.4.0/cgal-5.5.2-774me4awmah35ndfwa6h2cdjdxbi7wip/include/
+INCLUDE_LOCATIONS += /home/eyoo/spack/opt/spack/linux-rhel7-skylake_avx512/gcc-8.4.0/boost-1.83.0-lm4clgzwoav4coynyuhxj7zr5pt2jhnb/include/
 
 PROFILE      = TRUE # Full profiling
 TINY_PROFILE = FALSE
