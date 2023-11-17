@@ -15,6 +15,8 @@ using namespace amrex;
 
 int main (int argc, char* argv[])
 {
+    // EY: Timing the entire main
+    auto t0 = std::chrono::high_resolution_clock::now();
     amrex::Initialize(argc,argv);
 
     {
@@ -130,4 +132,8 @@ int main (int argc, char* argv[])
     }
     amrex::Print() << "Exit now" << "\n";
     amrex::Finalize();
+
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto dt = 1.e-9*std::chrono::duration_cast<std::chrono::nanoseconds>(t1-t0).count();
+    amrex::Print() << "Total time = " << dt << "(s)" << "\n";
 }

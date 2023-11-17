@@ -48,5 +48,8 @@ EB/Donut/Exec/ls_plt*
 *.visit
 *.pvsm
 
+# EY: Temporarily - for CGAL - between local and Eagle
+EB/STLtest/GNUmakefile
+
 #profilers
 **/bl_prof**
