@@ -121,7 +121,9 @@ int main (int argc, char* argv[])
         pltfile = "plt";
         WriteSingleLevelPlotfile(pltfile, marker, {"marker"}, geom, 0.0, 0);
 
-        // From Weiqun 
+        ---------------------------------------------------------------------------------- */
+
+        /*---------// From Weiqun--------------------------------------------------------- 
         int required_coarsening_level = 0; // typically the same as the max AMR level index
         int max_coarsening_level = 100;    // typically a huge number so MG coarsens as much as possible
         // build a simple geometry using the "eb2." parameters in the inputs file

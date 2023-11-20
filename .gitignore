@@ -53,3 +53,6 @@ ExampleCodes/EB/STLtest/GNUmakefile*
 
 #profilers
 **/bl_prof**
+
+# STL files -- you can force to add if you need to 
+ExampleCodes/EB/STLtest/*.stl

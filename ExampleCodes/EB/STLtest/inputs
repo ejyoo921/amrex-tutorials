@@ -2,7 +2,7 @@ amrex.fpe_trap_invalid=1
 
 # Select the embedded geometry 
 eb2.geom_type = stl
-stl_file      = bunny3.stl
+stl_file      = bunny1.stl
 
 stl_scale = 1 # default is 1
 # stl_center = 0 0 0 # default is (0,0,0)
