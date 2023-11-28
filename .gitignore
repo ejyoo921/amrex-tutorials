@@ -54,5 +54,7 @@ ExampleCodes/EB/STLtest/GNUmakefile*
 #profilers
 **/bl_prof**
 
-# STL files -- you can force to add if you need to 
+# some other files in STLtest folder
 ExampleCodes/EB/STLtest/*.stl
+ExampleCodes/EB/STLtest/*.0
+ExampleCodes/EB/STLtest/inputs_*

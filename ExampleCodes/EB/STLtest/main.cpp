@@ -18,8 +18,6 @@ using namespace amrex;
 
 int main (int argc, char* argv[])
 {
-    // EY: Timing the entire main
-    auto t0 = std::chrono::high_resolution_clock::now();
     amrex::Initialize(argc,argv);
 
     {
@@ -59,6 +57,9 @@ int main (int argc, char* argv[])
         Geometry geom(domain,real_box,CoordSys::cartesian,is_periodic);
         DistributionMapping dm(ba);
 
+        std::string pltfile;
+
+        /* //---- Marker fill
         MultiFab marker;
         BoxArray nodal_ba = amrex::convert(ba, IntVect::TheNodeVector());
         marker.define(nodal_ba, dm, 1, nghost);
@@ -70,58 +71,13 @@ int main (int argc, char* argv[])
         int reverse_normal = 0;
 
         stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
-        stlobj.fill(marker,{0,0,0},geom, -1.0, 1.0); // Default outside = 1, inside = -1, bounday = 0.
+        stlobj.fill(marker,{0,0,0}, geom, -1.0, 1.0); // Default outside = 1, inside = -1, bounday = 0.
 
         // // write plot file
-        std::string pltfile;
         WriteSingleLevelPlotfile("plt", marker, {"marker"}, geom, 0.0, 0);
+        */
 
-        /* old one --------------------------------------------------------
-        // EY: what are these apx, apy, apz doing here?
-        MultiFab marker,apx,apy,apz;
-        // pp.getarr("outside_point",pointoutside);
-        BoxArray nodal_ba = amrex::convert(ba, IntVect::TheNodeVector());
-        marker.define(nodal_ba, dm, 1, nghost);
-        // EY: read_ascii_stl_file is not public
-        stlobj.read_ascii_stl_file(stl_fname); 
-        // EY: error says we need 4 arguments
-
-        int reverse_normal = 0;
-        stlobj.read_stl_file(stl_fname, scale, center, reverse_normal);
-
-        Real plo_arr[]={plo[0],plo[1],plo[2]}; // EY what do we do with this?
-        Real po_arr[]={pointoutside[0],pointoutside[1],pointoutside[2]};
-
-        EY: wrong name
-        stlobj.stl_to_markerfab(marker,geom,po_arr);
-        EY: nghost needs to be IntVect form
-        stlobj.fill(marker,{0,0,0},geom);
-        EY: what is the difference?
-        int box_type_num;
-        box_type_num = stlobj.getBoxType (domain, geom, RunOn::Gpu);
-        amrex::PrintToFile("box_type") << "domain  \n" << box_type_num;
-
-        marker.FillBoundary(geom.periodicity());
-        const EB2::IndexSpace& eb_is = EB2::IndexSpace::top();
-        const EB2::Level& eb_level = eb_is.getLevel(geom);
-
-        // options are basic, volume, or full
-        EBSupport ebs = EBSupport::full;
-        EBSupport ebs = EBSupport::volume; // EY
-
-        // number of ghost cells for each of the 3 EBSupport types
-        Vector<int> ng_ebs = {2,2,2};
-
-        // This object provides access to the EB database in the format of basic AMReX objects
-        // such as BaseFab, FArrayBox, FabArray, and MultiFab
-        EBFArrayBoxFactory factory(eb_level, geom, ba, dm, ng_ebs, ebs);
-
-        // write plot file
-        std::string pltfile;
-        pltfile = "plt";
-        WriteSingleLevelPlotfile(pltfile, marker, {"marker"}, geom, 0.0, 0);
-
-        ---------------------------------------------------------------------------------- */
+        
 
         /*---------// From Weiqun--------------------------------------------------------- 
         int required_coarsening_level = 0; // typically the same as the max AMR level index
@@ -134,11 +90,25 @@ int main (int argc, char* argv[])
         MultiFab const& vfrc = factory->getVolFrac();
         amrex::WriteMLMF(plot_file, {&vfrc}, {geom});
         ---------------------------------------------------------------------------------- */
+
+        int required_coarsening_level = 0; // typically the same as the max AMR level index
+        int max_coarsening_level = 100;    // typically a huge number so MG coarsens as much as possible
+        // build a simple geometry using the "eb2." parameters in the inputs file
+
+        // EY: Timing for EB2::Build
+        auto t0 = std::chrono::high_resolution_clock::now();    
+        EB2::Build(geom, required_coarsening_level, max_coarsening_level);
+
+        auto t1 = std::chrono::high_resolution_clock::now();
+        auto dt = 1.e-9*std::chrono::duration_cast<std::chrono::nanoseconds>(t1-t0).count();
+        amrex::Print() << "EB2::Build time = " << dt << "(s)" << "\n";
+
+        
+        auto const& factory = makeEBFabFactory(geom, ba, dm, {1,1,1}, EBSupport::full);
+        MultiFab const& vfrc = factory->getVolFrac();
+        amrex::WriteMLMF("plt", {&vfrc}, {geom});
     }
+
     amrex::Print() << "Exit now" << "\n";
     amrex::Finalize();
-
-    auto t1 = std::chrono::high_resolution_clock::now();
-    auto dt = 1.e-9*std::chrono::duration_cast<std::chrono::nanoseconds>(t1-t0).count();
-    amrex::Print() << "Total time = " << dt << "(s)" << "\n";
 }
