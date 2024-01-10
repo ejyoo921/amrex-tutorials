@@ -2,7 +2,7 @@ amrex.fpe_trap_invalid=1
 
 # Select the embedded geometry 
 eb2.geom_type = stl
-stl_file      = LDI_SinglePremixer_BoxInlet.STL
+stl_file      = CAcoarse_new.STL
 
 stl_scale = 1 # default is 1
 # stl_center = 0 0 0 # default is (0,0,0)
@@ -11,7 +11,7 @@ stl_scale = 1 # default is 1
 # Fluid domain parameters
 prob_lo       =  -10  -10   -15
 prob_hi       =   10   10   -10
-ncells        =   32   32    32
+ncells        =   4    4     4
 # max_grid_size = 100 # Default is 64
 
 # outside_point = 20.0 20.0 20.0
