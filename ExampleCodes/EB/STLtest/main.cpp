@@ -73,6 +73,5 @@ int main (int argc, char* argv[])
         pltfile = "plt";
         WriteSingleLevelPlotfile(pltfile, marker, {"marker"}, geom, 0.0, 0);
     }
-
     amrex::Finalize();
 }
