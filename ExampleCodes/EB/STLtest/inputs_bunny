@@ -1,0 +1,15 @@
+eb2.geom_type             = stl
+eb2.stl_file              = bunny1.stl
+
+eb2.stl_scale             = 1                   # default is 1
+eb2.stl_center            = 0      0      0     # default is (0,0,0)
+eb2.stl_reverse_normal    = 1                   # default is 0. use "1" to see the volume of the stl object 
+
+prob_lo               = -10  -10   50
+prob_hi               =  10   10   90
+ncells                =  4    4     8
+
+max_grid_size         = 8
+
+eb2.plt_multiple_cuts = "true"
+amrex.async_out=1
