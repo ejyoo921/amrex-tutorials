@@ -44,3 +44,5 @@ EB/Donut/Exec/ls_plt*
 *.visit
 *.pvsm
 
+# EY
+**/.DS_Store
