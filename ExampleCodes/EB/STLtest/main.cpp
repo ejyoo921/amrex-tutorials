@@ -51,7 +51,8 @@ int main (int argc, char* argv[])
         int required_coarsening_level = 0; // typically the same as the max AMR level index
         int max_coarsening_level = 0; // typically a huge number so MG coarsens as much as possible
         // build a simple geometry using the "eb2." parameters in the inputs file
-        EB2::Build(geom, required_coarsening_level, max_coarsening_level);
+        {BL_PROFILE("STLtools::EB2::Build");
+        EB2::Build(geom, required_coarsening_level, max_coarsening_level);}
 
         std::string pltfile;
         auto const& factory = makeEBFabFactory(geom, ba, dm, {1,1,1}, EBSupport::full);

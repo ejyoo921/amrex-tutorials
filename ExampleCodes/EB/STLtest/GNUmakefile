@@ -6,12 +6,12 @@ DIM	= 3
 
 COMP    = gnu
 
-USE_MPI   = TRUE
+USE_MPI   = FALSE
 USE_OMP   = FALSE
 USE_CUDA  = FALSE
 USE_EB    = TRUE
 
-TINY_PROFILE = FALSE
+TINY_PROFILE = TRUE
 
 include ./Make.package
 
